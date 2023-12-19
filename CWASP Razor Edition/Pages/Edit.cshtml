@@ -1,0 +1,50 @@
+﻿@page
+@model CWASP_Razor_Edition.Pages.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Ticket</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Ticket.Id" />
+            <div class="form-group">
+                <label asp-for="Ticket.LoanerOTO" class="control-label"></label>
+                <input asp-for="Ticket.LoanerOTO" class="form-control" />
+                <span asp-validation-for="Ticket.LoanerOTO" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Ticket.StudentName" class="control-label"></label>
+                <input asp-for="Ticket.StudentName" class="form-control" />
+                <span asp-validation-for="Ticket.StudentName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Ticket.LogTime" class="control-label"></label>
+                <input asp-for="Ticket.LogTime" class="form-control" />
+                <span asp-validation-for="Ticket.LogTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Ticket.Reason" class="control-label"></label>
+                <input asp-for="Ticket.Reason" class="form-control" />
+                <span asp-validation-for="Ticket.Reason" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
