@@ -25,6 +25,9 @@ namespace CWASP_Razor_Edition.Pages
         [BindProperty(SupportsGet = true)]
         public string? SearchString { get; set; }
 
+        [BindProperty(SupportsGet = true)]
+        public string? SearchOTO { get; set; }
+
         public SelectList? Reason { get; set; }
 
         [BindProperty(SupportsGet = true)]
@@ -43,6 +46,11 @@ namespace CWASP_Razor_Edition.Pages
             if (!string.IsNullOrEmpty(SearchString))
             {
                 tickets = tickets.Where(s => s.StudentName.Contains(SearchString));
+            }
+
+            if (!string.IsNullOrEmpty(SearchOTO))
+            {
+                tickets = tickets.Where(o => o.LoanerOTO.Contains(SearchOTO));
             }
 
             if (!string.IsNullOrEmpty(TicketReason))

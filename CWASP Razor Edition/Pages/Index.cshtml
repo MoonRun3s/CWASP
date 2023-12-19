@@ -12,11 +12,13 @@
 </p>
 
 <form>
-    <p>
+    <p style="display:inline">
+        Loaner OTO: <input type="text" asp-for="SearchOTO" />
+        Student Name: <input type="text" asp-for="SearchString"/>
+        Reason:
         <select asp-for="TicketReason" asp-items="Model.Reason">
             <option value="">All</option>
         </select>
-        Student Name: <input type="text" asp-for="SearchString" />
         <input type="submit" value="Filter" />
     </p>
 </form>
