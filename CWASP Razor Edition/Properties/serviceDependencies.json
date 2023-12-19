@@ -2,7 +2,8 @@
   "dependencies": {
     "mssql1": {
       "type": "mssql",
-      "connectionId": "ConnectionStrings:CWASP_Razor_EditionContext"
+      "connectionId": "ConnectionStrings:CWASP_Razor_EditionContext",
+      "dynamicId": null
     }
   }
 }
