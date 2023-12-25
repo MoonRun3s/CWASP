@@ -1,4 +1,7 @@
-﻿using System.ComponentModel;
+﻿using CWASP_Razor_Edition.Data;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -8,12 +11,12 @@ namespace CWASP_Razor_Edition.Models
     {
         public int Id { get; set; }
 
-        [RegularExpression("^OTO\\d\\d\\d\\d\\d$")]
-        [Display(Name = "Loaner OTO # (OTO_____)")]
+        [RegularExpression("^OTO\\d\\d\\d\\d\\d$", ErrorMessage = "Input must equal \"OTO#####\".")]
+        [Display(Name = "OTO #")]
         [Required]
         public string? LoanerOTO { get; set; }
 
-        [Display(Name = "Student Name (First Last)")]
+        [Display(Name = "Student Name")]
         [Required]
         public string? StudentName { get; set; }
 
@@ -22,9 +25,10 @@ namespace CWASP_Razor_Edition.Models
         [DataType(DataType.DateTime)]
         public DateTime LogTime { get; set; }
 
-        [RegularExpression("^(Repair|Charge|Forgotten|Other)$")]
-        [Display(Name = "Reason (Repair, Charge, Forgotten, Other)")]
+        [RegularExpression("^(Home|Repair|Charge|Lost|Other)$", ErrorMessage = "Input must equal \"Home\", \"Repair\", \"Charge\", \"Lost\", or \"Other\".")]
         [Required]
         public string? Reason { get; set; }
+
+        public string? Description { get; set; }
     }
 }

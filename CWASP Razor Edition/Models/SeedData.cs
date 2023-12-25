@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using CWASP_Razor_Edition.Data;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace CWASP_Razor_Edition.Models
 {
@@ -28,6 +29,7 @@ namespace CWASP_Razor_Edition.Models
                         LoanerOTO = "OTO00513",
                         StudentName = "John Smith",
                         Reason = "Other",
+                        Description = "Description",
                     }
                 );
                 context.SaveChanges();

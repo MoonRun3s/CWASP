@@ -12,6 +12,10 @@ namespace CWASP_Razor_Edition.Pages
 {
     public class CreateModel : PageModel
     {
+        //[TempData]
+        [ViewData]
+        public string? Message { get; set; }
+
         private readonly CWASP_Razor_Edition.Data.CWASP_Razor_EditionContext _context;
 
         public CreateModel(CWASP_Razor_Edition.Data.CWASP_Razor_EditionContext context)
@@ -28,7 +32,7 @@ namespace CWASP_Razor_Edition.Pages
         public Ticket Ticket { get; set; } = default!;
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostSubmit()
         {
             if (!ModelState.IsValid)
             {
@@ -39,6 +43,31 @@ namespace CWASP_Razor_Edition.Pages
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");
+        }
+
+        public async Task<IActionResult> OnPostCheckDuplicates()
+        {
+
+            if (!ModelState.IsValid)
+            {
+                Message = "CAUTION: Ticket does not have required fields.";
+                return Page();
+            }
+
+            var tickets = from t in _context.Ticket                                                         // get all tickets from database
+                          select t;
+
+            foreach (var t in tickets)                                                                      // compare new ticket "student name" and "loaneroto" values to all tickets in db
+            {
+                if (t.StudentName == Ticket.StudentName || t.LoanerOTO == Ticket.LoanerOTO)                 // if there is a match, return the partial view with the message
+                {
+                    Message = "CAUTION: Ticket OTO # or student Name already exists in database.";
+                    return Page();
+                };
+            }
+
+            Message = "No duplicates found.";
+            return Page();
         }
     }
 }
