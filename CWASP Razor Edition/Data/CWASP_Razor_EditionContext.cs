@@ -7,13 +7,8 @@ using CWASP_Razor_Edition.Models;
 
 namespace CWASP_Razor_Edition.Data
 {
-    public class CWASP_Razor_EditionContext : DbContext
+    public class CWASP_Razor_EditionContext(DbContextOptions<CWASP_Razor_EditionContext> options) : DbContext(options)
     {
-        public CWASP_Razor_EditionContext (DbContextOptions<CWASP_Razor_EditionContext> options)
-            : base(options)
-        {
-        }
-
         public DbSet<CWASP_Razor_Edition.Models.Ticket> Ticket { get; set; } = default!;
     }
 }
