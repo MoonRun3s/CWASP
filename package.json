@@ -1,0 +1,8 @@
+{
+  "name": "dotnet-run-default-project",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "start": "dotnet run --project C:\\Users\\jrich\\source\\repos\\CWASP\\CWASP.sln"
+  }
+}

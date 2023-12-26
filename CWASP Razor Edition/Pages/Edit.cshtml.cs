@@ -11,14 +11,12 @@ using CWASP_Razor_Edition.Models;
 
 namespace CWASP_Razor_Edition.Pages
 {
-    public class EditModel : PageModel
+    public class EditModel(CWASP_Razor_Edition.Data.CWASP_Razor_EditionContext context) : PageModel
     {
-        private readonly CWASP_Razor_Edition.Data.CWASP_Razor_EditionContext _context;
+        [ViewData]
+        public string? Message { get; set; }
 
-        public EditModel(CWASP_Razor_Edition.Data.CWASP_Razor_EditionContext context)
-        {
-            _context = context;
-        }
+        private readonly CWASP_Razor_Edition.Data.CWASP_Razor_EditionContext _context = context;
 
         [BindProperty]
         public Ticket Ticket { get; set; } = default!;
@@ -27,13 +25,14 @@ namespace CWASP_Razor_Edition.Pages
         {
             if (id == null)
             {
-                return NotFound();
+                return RedirectToPage("./Error");
             }
 
             var ticket =  await _context.Ticket.FirstOrDefaultAsync(m => m.Id == id);
             if (ticket == null)
             {
-                return NotFound();
+                // return NotFound();
+                return RedirectToPage("./Error");
             }
             Ticket = ticket;
             return Page();
@@ -41,7 +40,7 @@ namespace CWASP_Razor_Edition.Pages
 
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see https://aka.ms/RazorPagesCRUD.
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostSave()
         {
             if (!ModelState.IsValid)
             {
@@ -58,7 +57,8 @@ namespace CWASP_Razor_Edition.Pages
             {
                 if (!TicketExists(Ticket.Id))
                 {
-                    return NotFound();
+                    // return NotFound();
+                    return RedirectToPage("./Error");
                 }
                 else
                 {
@@ -72,6 +72,31 @@ namespace CWASP_Razor_Edition.Pages
         private bool TicketExists(int id)
         {
             return _context.Ticket.Any(e => e.Id == id);
+        }
+
+        public IActionResult OnPostCheckDuplicates()
+        {
+
+            if (!ModelState.IsValid)
+            {
+                Message = "CAUTION: Ticket does not have required fields.";
+                return Page();
+            }
+
+            var tickets = from t in _context.Ticket                                                         // get all tickets from database
+                          select t;
+
+            foreach (var t in tickets)                                                                      // compare new ticket "student name" and "loaneroto" values to all tickets in db
+            {
+                if ((t.StudentName == Ticket.StudentName || t.LoanerOTO == Ticket.LoanerOTO) && (t.Id != Ticket.Id))                 // if there is a match, return the partial view with the message (ignoring self)
+                {
+                    Message = "CAUTION: Ticket OTO # or student Name already exists in database.";
+                    return Page();
+                };
+            }
+
+            Message = "No duplicates found.";
+            return Page();
         }
     }
 }

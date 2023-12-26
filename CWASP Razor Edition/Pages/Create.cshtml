@@ -30,7 +30,13 @@
             </div>
             <div class="form-group">
                 <label asp-for="Ticket.Reason" class="control-label"></label>
-                <input asp-for="Ticket.Reason" class="form-control" />
+                <select asp-for="Ticket.Reason">
+                    <option value="Home">Home</option>
+                    <option value="Repair">Repair</option>
+                    <option value="Charge">Charge</option>
+                    <option value="Lost">Lost</option>
+                    <option value="Other">Other</option>
+                </select>
                 <span asp-validation-for="Ticket.Reason" class="text-danger"></span>
             </div>
             <div class="form-group">

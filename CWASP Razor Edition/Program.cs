@@ -8,6 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddDbContext<CWASP_Razor_EditionContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("CWASP_Razor_EditionContext") ?? throw new InvalidOperationException("Connection string 'CWASP_Razor_EditionContext' not found.")));
+builder.Services.AddApplicationInsightsTelemetry(builder.Configuration["APPLICATIONINSIGHTS_CONNECTION_STRING"]);
 
 var app = builder.Build();
 

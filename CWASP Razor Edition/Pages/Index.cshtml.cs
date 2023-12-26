@@ -11,14 +11,9 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace CWASP_Razor_Edition.Pages
 {
-    public class IndexModel : PageModel
+    public class IndexModel(CWASP_Razor_Edition.Data.CWASP_Razor_EditionContext context) : PageModel
     {
-        private readonly CWASP_Razor_Edition.Data.CWASP_Razor_EditionContext _context;
-
-        public IndexModel(CWASP_Razor_Edition.Data.CWASP_Razor_EditionContext context)
-        {
-            _context = context;
-        }
+        private readonly CWASP_Razor_Edition.Data.CWASP_Razor_EditionContext _context = context;
 
         public IList<Ticket> Ticket { get;set; } = default!;
 
@@ -43,6 +38,7 @@ namespace CWASP_Razor_Edition.Pages
             var tickets = from m in _context.Ticket
                          select m;
 
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
             if (!string.IsNullOrEmpty(SearchString))
             {
                 tickets = tickets.Where(s => s.StudentName.Contains(SearchString));
@@ -55,8 +51,9 @@ namespace CWASP_Razor_Edition.Pages
 
             if (!string.IsNullOrEmpty(TicketReason))
             {
-                tickets = tickets.Where(x => x.Reason == TicketReason);
+                tickets = tickets.Where(x => x.Reason.Equals(TicketReason));
             }
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
 
             Reason = new SelectList(await reasonQuery.Distinct().ToListAsync());
             Ticket = await tickets.ToListAsync();

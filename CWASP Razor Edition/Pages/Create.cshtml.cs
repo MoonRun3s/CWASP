@@ -10,18 +10,12 @@ using CWASP_Razor_Edition.Models;
 
 namespace CWASP_Razor_Edition.Pages
 {
-    public class CreateModel : PageModel
+    public class CreateModel(CWASP_Razor_Edition.Data.CWASP_Razor_EditionContext context) : PageModel
     {
-        //[TempData]
         [ViewData]
         public string? Message { get; set; }
 
-        private readonly CWASP_Razor_Edition.Data.CWASP_Razor_EditionContext _context;
-
-        public CreateModel(CWASP_Razor_Edition.Data.CWASP_Razor_EditionContext context)
-        {
-            _context = context;
-        }
+        private readonly CWASP_Razor_Edition.Data.CWASP_Razor_EditionContext _context = context;
 
         public IActionResult OnGet()
         {
@@ -45,7 +39,7 @@ namespace CWASP_Razor_Edition.Pages
             return RedirectToPage("./Index");
         }
 
-        public async Task<IActionResult> OnPostCheckDuplicates()
+        public IActionResult OnPostCheckDuplicates()
         {
 
             if (!ModelState.IsValid)

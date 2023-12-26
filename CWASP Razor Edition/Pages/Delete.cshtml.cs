@@ -10,14 +10,9 @@ using CWASP_Razor_Edition.Models;
 
 namespace CWASP_Razor_Edition.Pages
 {
-    public class DeleteModel : PageModel
+    public class DeleteModel(CWASP_Razor_Edition.Data.CWASP_Razor_EditionContext context) : PageModel
     {
-        private readonly CWASP_Razor_Edition.Data.CWASP_Razor_EditionContext _context;
-
-        public DeleteModel(CWASP_Razor_Edition.Data.CWASP_Razor_EditionContext context)
-        {
-            _context = context;
-        }
+        private readonly CWASP_Razor_Edition.Data.CWASP_Razor_EditionContext _context = context;
 
         [BindProperty]
         public Ticket Ticket { get; set; } = default!;
@@ -26,14 +21,16 @@ namespace CWASP_Razor_Edition.Pages
         {
             if (id == null)
             {
-                return NotFound();
+                // return NotFound();
+                return RedirectToPage("./Error");
             }
 
             var ticket = await _context.Ticket.FirstOrDefaultAsync(m => m.Id == id);
 
             if (ticket == null)
             {
-                return NotFound();
+                // return NotFound();
+                return RedirectToPage("./Error");
             }
             else
             {
@@ -46,7 +43,7 @@ namespace CWASP_Razor_Edition.Pages
         {
             if (id == null)
             {
-                return NotFound();
+                return RedirectToPage("./Error");
             }
 
             var ticket = await _context.Ticket.FindAsync(id);

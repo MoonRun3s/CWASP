@@ -9,6 +9,7 @@ namespace CWASP_Razor_Edition.Models
 {
     public class Ticket
     {
+        [Key]
         public int Id { get; set; }
 
         [RegularExpression("^OTO\\d\\d\\d\\d\\d$", ErrorMessage = "Input must equal \"OTO#####\".")]
