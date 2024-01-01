@@ -27,7 +27,7 @@ namespace CWASP_Razor_Edition.Models
                 {
                     LoanerOTO = "OTO00513",
                     StudentName = "John Smith",
-                    // Reason = new SelectListItem { Value = "Home", Text = "Home" },
+                    Reason = "Other",
                     Description = "Description",
                 }
             );
