@@ -8,16 +8,18 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddDbContext<CWASP_Razor_EditionContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("CWASPdbconnection") ?? throw new InvalidOperationException("Connection string 'CWASPdbconnection' not found.")));
-builder.Services.AddApplicationInsightsTelemetry(builder.Configuration["APPLICATIONINSIGHTS_CONNECTION_STRING"]);
+builder.Services.AddApplicationInsightsTelemetry();
 
 var app = builder.Build();
 
+/* Database seeding
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
 
     SeedData.Initialize(services);
 }
+*/
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

@@ -16,7 +16,7 @@ namespace CWASP_Razor_Edition.Models
                 throw new ArgumentNullException("Null CWASP_Razor_EditionContext");
             }
 
-            // Look for any tivkets.
+            // Look for any tickets.
             if (context.Ticket.Any())
             {
                 return;   // Don't continue: DB has been seeded
