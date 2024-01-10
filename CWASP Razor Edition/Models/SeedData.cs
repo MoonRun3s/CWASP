@@ -13,7 +13,8 @@ namespace CWASP_Razor_Edition.Models
                 DbContextOptions<CWASP_Razor_EditionContext>>());
             if (context == null || context.Ticket == null)
             {
-                throw new ArgumentNullException("Null CWASP_Razor_EditionContext");
+                var paramName = "Null CWASP_Razor_EditionContext";
+                throw new ArgumentNullException(paramName);
             }
 
             // Look for any tickets.

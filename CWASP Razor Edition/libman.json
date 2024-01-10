@@ -9,6 +9,14 @@
         "dist/browser/signalr.js",
         "dist/browser/signalr.min.js"
       ]
+    },
+    {
+      "library": "signalr@2.4.3",
+      "destination": "wwwroot/lib/signalr/",
+      "files": [
+        "jquery.signalR.js",
+        "jquery.signalR.min.js"
+      ]
     }
   ]
 }

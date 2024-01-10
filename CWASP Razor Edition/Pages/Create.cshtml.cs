@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using CWASP_Razor_Edition.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using CWASP_Razor_Edition.Data;
-using CWASP_Razor_Edition.Models;
+using Microsoft.AspNetCore.SignalR.Client;
 
 namespace CWASP_Razor_Edition.Pages
 {

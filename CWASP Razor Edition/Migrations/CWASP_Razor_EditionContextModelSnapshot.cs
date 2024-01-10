@@ -50,7 +50,7 @@ namespace CWASP_Razor_Edition.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Ticket");
+                    b.ToTable("Ticket", (string)null);
                 });
 #pragma warning restore 612, 618
         }
