@@ -1,5 +1,5 @@
 ﻿using CWASP_Razor_Edition.Data;
-using CWASP_Razor_Edition.Hubs;
+// using CWASP_Razor_Edition.Hubs;
 using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
