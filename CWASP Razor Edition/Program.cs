@@ -8,8 +8,8 @@ builder.Services.AddRazorPages();
 builder.Services.AddDbContext<CWASP_Razor_EditionContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("CWASPdbconnection") ?? throw new InvalidOperationException("Connection string 'CWASPdbconnection' not found.")));
 builder.Services.AddApplicationInsightsTelemetry();
-builder.Services.AddSignalR().AddAzureSignalR();
-builder.Services.AddSignalRCore();
+// builder.Services.AddSignalR().AddAzureSignalR();
+// builder.Services.AddSignalRCore();
 
 var app = builder.Build();
 
@@ -38,6 +38,6 @@ app.UseRouting();
 app.UseAuthorization();
 
 app.MapRazorPages();
-app.MapHub<IndexHub>("/indexHub");
+// app.MapHub<IndexHub>("/indexHub");
 
 app.Run();

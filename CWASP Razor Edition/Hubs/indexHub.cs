@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.SignalR;
+﻿/* using Microsoft.AspNetCore.SignalR;
 
 namespace CWASP_Razor_Edition.Hubs
 {
@@ -11,3 +11,4 @@ namespace CWASP_Razor_Edition.Hubs
         }
     }
 }
+*/
