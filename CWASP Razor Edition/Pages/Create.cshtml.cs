@@ -1,7 +1,6 @@
 ﻿using CWASP_Razor_Edition.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.SignalR.Client;
 
 namespace CWASP_Razor_Edition.Pages
 {

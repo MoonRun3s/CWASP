@@ -1,0 +1,52 @@
+﻿@using CWASP_Razor_Edition.Models
+@model IList<Ticket>
+
+<table class="table" id="DatabaseList">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model[0].LoanerOTO)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].StudentName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].LogTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].Reason)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].Description)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LoanerOTO)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StudentName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LogTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Reason)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

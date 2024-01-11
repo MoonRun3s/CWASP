@@ -1,6 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
-using CWASP_Razor_Edition.Data;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using CWASP_Razor_Edition.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace CWASP_Razor_Edition.Models
 {

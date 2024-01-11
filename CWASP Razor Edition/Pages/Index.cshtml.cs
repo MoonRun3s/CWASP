@@ -1,21 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using CWASP_Razor_Edition.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
-using CWASP_Razor_Edition.Data;
-using CWASP_Razor_Edition.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 
 namespace CWASP_Razor_Edition.Pages
 {
     public class IndexModel(CWASP_Razor_Edition.Data.CWASP_Razor_EditionContext context) : PageModel
     {
         private readonly CWASP_Razor_Edition.Data.CWASP_Razor_EditionContext _context = context;
-
-        public IList<Ticket> Ticket { get;set; } = default!;
+        public IList<Ticket> Ticket { get; set; } = default!;
 
         [BindProperty(SupportsGet = true)]
         public string? SearchString { get; set; }
@@ -28,16 +22,15 @@ namespace CWASP_Razor_Edition.Pages
         [BindProperty(SupportsGet = true)]
         public string? TicketReason { get; set; }
 
-        public async Task OnGetAsync()
+        public IQueryable<Ticket> PopulateModelVariable()
         {
-            // Use LINQ to get list of genres.
-            IQueryable<string> reasonQuery = from m in _context.Ticket
-                                            orderby m.Reason
-                                            select m.Reason;
-
             var tickets = from m in _context.Ticket
-                         select m;
+                          select m;
+            return tickets;
+        }
 
+        public IQueryable<Ticket> PrepareModel(IQueryable<Ticket> tickets)
+        {
 #pragma warning disable CS8602 // Dereference of a possibly null reference.
             if (!string.IsNullOrEmpty(SearchString))
             {
@@ -55,8 +48,44 @@ namespace CWASP_Razor_Edition.Pages
             }
 #pragma warning restore CS8602 // Dereference of a possibly null reference.
 
+            return tickets;
+        }
+
+        public async Task OnGetAsync()
+        {
+            var tickets = PopulateModelVariable();
+
+            // Use LINQ to get list of genres.
+            IQueryable<string> reasonQuery = from m in _context.Ticket
+                                             orderby m.Reason
+                                             select m.Reason;
+
+            tickets = PrepareModel(tickets);
+
             Reason = new SelectList(await reasonQuery.Distinct().ToListAsync());
             Ticket = await tickets.ToListAsync();
+        }
+
+        public async Task<PartialViewResult?> OnGetDataListPartial()
+        {
+            var tickets = PopulateModelVariable();
+
+            // Use LINQ to get list of genres.
+            IQueryable<string> reasonQuery = from m in _context.Ticket
+                                             orderby m.Reason
+                                             select m.Reason;
+
+            tickets = PrepareModel(tickets);
+
+            Reason = new SelectList(await reasonQuery.Distinct().ToListAsync());
+            Ticket = await tickets.ToListAsync();
+
+            if ((string.IsNullOrEmpty(SearchOTO)) && (string.IsNullOrEmpty(SearchOTO)) && (string.IsNullOrEmpty(TicketReason)))
+            {
+                return Partial("_DataList", Ticket);
+            }
+
+            return null;
         }
     }
 }
