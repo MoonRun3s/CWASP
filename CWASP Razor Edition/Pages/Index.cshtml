@@ -23,17 +23,52 @@
     </p>
 </form>
 
-<p><button class="btn btn-primary" id="load">Force Load Partial View</button></p>
+<!-- <p><button class="btn btn-primary" id="load">Force Load Partial View</button></p> -->
 <div id="grid">
     <!-- Render the table using a partial view -->
     <partial name="_DataList" model="@Model.Ticket" />
 </div>
 @section scripts {
-    <script>
-        $(function () {
-            $('#load').on('click', function () {
+    <script type="text/javascript" src="~/js/signalr/dist/browser/signalr.js"></script>
+    <script type="text/javascript">
+        document.addEventListener("DOMContentLoaded", () => {
+            const connection = new signalR.HubConnectionBuilder()
+                // .configureLogging(signalR.LogLevel.Debug)
+                .configureLogging(signalR.LogLevel.Information)
+                .withUrl("/Hubs/controlHub")
+                .build();
+
+            function update() {
+                console.log("SignalR recieved an update request.");
                 $('#grid').load('/Index?handler=DataListPartial');
+            }
+
+            connection.on("UpdatePartialView", function () {
+                setTimeout(update, 2000) // tempfix
             });
+
+            async function start() {
+                try {
+                    await connection.start();
+                    console.log("SignalR connected.");
+                } catch (err) {
+                    console.log(err);
+                    console.log("Retrying SignalR connection in 10 seconds...");
+                    setTimeout(start, 10000);
+                }
+            };
+
+            connection.onclose(async () => {
+                await start();
+            });
+
+            start();
         });
+
+        // $(function () {
+        //     $('#load').on('click', function () {
+        //         $('#grid').load('/Index?handler=DataListPartial');
+        //     });
+        // });
     </script>
 }

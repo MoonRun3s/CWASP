@@ -1,6 +1,9 @@
 ﻿using CWASP_Razor_Edition.Models;
+using Microsoft.ApplicationInsights.AspNetCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.CodeAnalysis.Scripting;
+using Microsoft.Identity.Client;
 
 namespace CWASP_Razor_Edition.Pages
 {
@@ -19,7 +22,7 @@ namespace CWASP_Razor_Edition.Pages
         [BindProperty]
         public Ticket Ticket { get; set; } = default!;
 
-        // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
+        // To protect from overposting attacks, see https://aka.ms/
         public async Task<IActionResult> OnPostSubmit()
         {
             if (!ModelState.IsValid)
@@ -29,7 +32,7 @@ namespace CWASP_Razor_Edition.Pages
 
             _context.Ticket.Add(Ticket);
             await _context.SaveChangesAsync();
-
+            
             return RedirectToPage("./Index");
         }
 

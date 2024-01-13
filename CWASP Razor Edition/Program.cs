@@ -1,15 +1,29 @@
 ﻿using CWASP_Razor_Edition.Data;
-// using CWASP_Razor_Edition.Hubs;
+using CWASP_Razor_Edition.Hubs;
+using Microsoft.AspNetCore.Cors.Infrastructure;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+builder.Services.AddSignalR().AddAzureSignalR();
 builder.Services.AddDbContext<CWASP_Razor_EditionContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("CWASPdbconnection") ?? throw new InvalidOperationException("Connection string 'CWASPdbconnection' not found.")));
 builder.Services.AddApplicationInsightsTelemetry();
-// builder.Services.AddSignalR().AddAzureSignalR();
-// builder.Services.AddSignalRCore();
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(
+        builder =>
+        {
+            builder.WithOrigins("https://cwasp.azurewebsites.net")
+                .AllowAnyHeader()
+                .WithMethods("GET", "POST")
+                .AllowCredentials();
+        });
+});
+
 
 var app = builder.Build();
 
@@ -31,13 +45,16 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseDefaultFiles();
 app.UseStaticFiles();
 
 app.UseRouting();
 
 app.UseAuthorization();
 
+app.UseCors();
+
 app.MapRazorPages();
-// app.MapHub<IndexHub>("/indexHub");
+app.MapHub<ControlHub>("/Hubs/controlHub");
 
 app.Run();
