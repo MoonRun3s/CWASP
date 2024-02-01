@@ -21,11 +21,11 @@
       "connectionId": "ConnectionStrings:CWASPdbconnection"
     },
     "mssql1": {
-      "serviceConnectorResourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Web/sites/CWASP/providers/Microsoft.ServiceLinker/linkers/ConnectionStringsCWASPdbconnection_CF8639D358",
+      "serviceConnectorResourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.ServiceLinker/locations/eastus/connectors/CWASPdbconnection_AB36FB33CE",
       "secretStore": "AzureAppSettings",
       "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/cwaspdbserver/databases/CWASP_db",
       "type": "mssql.azure",
-      "connectionId": "ConnectionStrings:CWASPdbconnection"
+      "connectionId": "CWASPdbconnection"
     }
   }
 }

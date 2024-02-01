@@ -10,9 +10,14 @@
       "connectionId": "Azure:SignalR:ConnectionString",
       "dynamicId": null
     },
+    "mssql2": {
+      "type": "mssql",
+      "connectionId": "ConnectionStrings:CWASPdbconnection",
+      "dynamicId": null
+    },
     "mssql1": {
       "type": "mssql",
-      "connectionId": "ConnectionStrings:CWASPdbconnection"
+      "connectionId": "CWASPdbconnection"
     }
   }
 }

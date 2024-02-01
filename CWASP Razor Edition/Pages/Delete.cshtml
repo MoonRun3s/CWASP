@@ -51,17 +51,21 @@
 </div>
 
 @section Scripts {
+    @*
+        The following scripts send a request to the server to update all index views.
+        They enable live-updating core functionality.
+    *@
+
     <script type="text/javascript" src="~/js/signalr/dist/browser/signalr.js"></script>
     <script type="text/javascript">
         document.addEventListener("DOMContentLoaded", () => {
-            const connection = new signalR.HubConnectionBuilder()
-                // .configureLogging(signalR.LogLevel.Debug)
+            const connection = new signalR.HubConnectionBuilder()       // Create the SignalR Hub connection.
                 .configureLogging(signalR.LogLevel.Information)
                 .withUrl("/Hubs/controlHub")
                 .build();
 
             document.getElementById("deleteButton").addEventListener("click", function (event) {
-                connection.invoke("AllCall").catch(function (err) {
+                connection.invoke("AllCall").catch(function (err) {     // Talk to server.
                     return console.error(err.toString());
                 });
             });

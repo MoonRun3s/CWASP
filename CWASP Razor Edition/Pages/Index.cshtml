@@ -23,28 +23,31 @@
     </p>
 </form>
 
-<!-- <p><button class="btn btn-primary" id="load">Force Load Partial View</button></p> -->
 <div id="grid">
     <!-- Render the table using a partial view -->
     <partial name="_DataList" model="@Model.Ticket" />
 </div>
 @section scripts {
+    @*
+        The following scripts send a request to the server to update all index views.
+        They enable live-updating core functionality.
+    *@
+
     <script type="text/javascript" src="~/js/signalr/dist/browser/signalr.js"></script>
     <script type="text/javascript">
         document.addEventListener("DOMContentLoaded", () => {
-            const connection = new signalR.HubConnectionBuilder()
-                // .configureLogging(signalR.LogLevel.Debug)
+            const connection = new signalR.HubConnectionBuilder()       // Create the SignalR Hub connection.
                 .configureLogging(signalR.LogLevel.Information)
                 .withUrl("/Hubs/controlHub")
                 .build();
 
             function update() {
                 console.log("SignalR recieved an update request.");
-                $('#grid').load('/Index?handler=DataListPartial');
+                $('#grid').load('/Index?handler=DataListPartial');      // Load the partial view by calling the DataListPartial page handler.
             }
 
-            connection.on("UpdatePartialView", function () {
-                setTimeout(update, 2000) // tempfix
+            connection.on("UpdatePartialView", function () {            // Listen for the command to refresh the partial view.
+                setTimeout(update, 2000)                                // TEMPFIX: wait 2 seconds to allow db queries to finish so changes are displayed.
             });
 
             async function start() {
@@ -64,11 +67,5 @@
 
             start();
         });
-
-        // $(function () {
-        //     $('#load').on('click', function () {
-        //         $('#grid').load('/Index?handler=DataListPartial');
-        //     });
-        // });
     </script>
 }

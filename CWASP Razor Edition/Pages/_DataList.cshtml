@@ -1,52 +1,25 @@
 ﻿@using CWASP_Razor_Edition.Models
 @model IList<Ticket>
 
-<table class="table" id="DatabaseList">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model[0].LoanerOTO)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model[0].StudentName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model[0].LogTime)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model[0].Reason)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model[0].Description)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
+<!-- Class reference: https://getbootstrap.com/docs/4.0/layout/grid/ -->
+<div class="container" style="display: block; margin-block-start: 1em; margin-block-end: 1em;">
+    <div class="row">
+    @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.LoanerOTO)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.StudentName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.LogTime)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Reason)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Description)
-                </td>
-                <td>
-                    <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
-                    @* <a asp-page="./Details" asp-route-id="@item.Id">Details</a> | *@
-                    <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
-                </td>
-            </tr>
+            <div class="col-lg-3 bg-secondary bg-opacity-10" style="display: block; margin-block-end: 2em; padding: inherit; margin-right: 1em; margin-left: 1em; text-indent: 0.5em;">
+                <div style="background-color: rgb(49, 123, 209) !important; color: rgb(255, 255, 255) !important;">
+                    <strong>@Html.DisplayFor(modelItem => item.LoanerOTO)</strong>
+                </div>
+                <div><i>Loaned to @Html.DisplayFor(modelItem => item.StudentName)</i></div>
+                <div>@Html.DisplayFor(modelItem => item.LogTime)</div>
+                <div>Reason: @Html.DisplayFor(modelItem => item.Reason)</div>
+                <div class="form-group" style="margin-left: auto; margin-right: auto;">
+                    <a asp-page="./Index" asp-route-id="@item.Id"><input type="submit" value="Admin" class="btn btn-warning" /></a>
+                    <a asp-page="./Details" asp-route-id="@item.Id"><input type="submit" value="Details" class="btn btn-primary" /></a>
+                    <a asp-page="./Edit" asp-route-id="@item.Id"><input type="submit" value="Edit" class="btn btn-primary" /></a>
+                    <a asp-page="./Delete" asp-route-id="@item.Id"><input type="submit" value="Delete" class="btn btn-danger" /></a>
+                </div>
+            </div>
         }
-    </tbody>
-</table>
+    </div>
+</div>
